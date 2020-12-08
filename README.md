@@ -1,5 +1,9 @@
 # Vue Composition API Tabs
 
+
+[View live example on Netlify](https://proof-of-concept-vue-composition-api-tabs.netlify.app/).
+
+
 In this repo, I built a Vue-powered tab-switcher.
 
 In Vue 2, the classic way to solve this problem is with a **compound component**. More specifically, you could create a `TabContainer` component to hold shared state (i.e. an ID for the currently active tab), a `Tab` component that listens for click events and sets the active tab accordingly, and a `TabPanel` component to conditionally render the correct content.
@@ -57,3 +61,15 @@ Compound components are a useful pattern, but I think the pattern I present in t
 1. It allows the author to collocate logic, whereas compound components tend to force the author to spread related logic across various components.
 2. All state is managed and accessed in the same function scope, whereas compound components often force the auther to share state through `provide`/`inject`.
 3. This pattern returns full control over markup to the developer. It gives the developer a stronger feeling of writing plain HTML and CSS, sprinkled with `:ref` bindings and simple `setup` functions whenever advanced functionality is needed.
+
+
+## Meta
+
+This example is a Vite app. To run locally:
+
+1. Clone the repo
+2. `npm install`
+3. `npm run dev`
+4. Visit http://localhost:3000
+
+
