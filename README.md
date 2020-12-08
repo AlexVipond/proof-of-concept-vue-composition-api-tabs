@@ -51,8 +51,7 @@ Furthermore, it's possible to implement all event listening, attribute binding, 
 
 Visit src/App.vue for a complete example of what this API looks like for the developer. Visit src/useTabList.ts to get a sense of the authoring experience.
 
-Note: This repo exists to demonstrate the basic concepts of authoring and consuming this Vue pattern—it's not a fully accessible demo. To demonstrate attribute binding, I added aria roles, but in an enterprise-grade solution, I would go further, authoring the `useTabList` composition function to attach additional event listeners to make sure the tablist is keyboard accessible.
-
+Finally, be aware that this repo exists to demonstrate the basic concepts of authoring and consuming a particular Vue pattern—it's not a fully accessible demo. To demonstrate attribute binding, I added aria roles, but in an enterprise-grade solution, I would go further, authoring the `useTabList` composition function to attach additional event listeners to make sure the tablist is keyboard accessible.
 
 
 ## Motivation
@@ -73,3 +72,19 @@ This example is a Vite app. To run locally:
 4. Visit http://localhost:3000
 
 
+
+## Infinite recursion bug in `v-for` function refs
+
+The `v-for` function refs in the above example are bound to the element and wrapped in additional closures that pass the item's index to the function ref:
+
+```html
+<div :ref="el => tablist.tabs.ref(el, index)">...</div>
+```
+
+In my opinion, this shouldn't be necessary, and it should be simplified to the following, with the function ref accepting only the HTML element:
+
+```html
+<div :ref="tablist.tabs.ref">...</div>
+```
+
+Unfortunately, this nicer solution is associated with an infinite recursion bug, [reported here ](https://github.com/vuejs/vue-next/issues/2767).
