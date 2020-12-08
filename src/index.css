@@ -1,0 +1,21 @@
+.tabs {
+  display: flex;
+}
+.tab {
+  border: 1px solid;
+  cursor: pointer;
+  padding: 10px;
+  width: 100px;
+  text-align: center;
+}
+.tab:first-child {
+  border-right: none;
+}
+.selected {
+  color: blue;
+  border-bottom: 5px solid blue;
+}
+.content {
+  margin: 10px;
+  font-size: 1.5rem;
+}

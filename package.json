@@ -1,0 +1,17 @@
+{
+  "name": "vue-composition-api-tabs",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@baleada/vue-features": "^0.4.6",
+    "nanoid": "^3.1.20",
+    "vue": "^3.0.2"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.0.2",
+    "vite": "^1.0.0-rc.8"
+  }
+}
