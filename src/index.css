@@ -1,4 +1,4 @@
-.tabs {
+.tablist {
   display: flex;
 }
 .tab {
@@ -15,7 +15,7 @@
   color: blue;
   border-bottom: 5px solid blue;
 }
-.content {
+.panel {
   margin: 10px;
   font-size: 1.5rem;
 }
