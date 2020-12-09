@@ -3,7 +3,7 @@
     <button
       v-for="({ tab, isSelected }, index) in tablist.tabs.values"
       :key="index"
-      :ref="el => tablist.tabs.ref(el, index)"
+      :ref="tablist.tabs.ref"
       class="tab"
       :class="isSelected ? 'selected' : ''"
     >
@@ -12,7 +12,7 @@
     <div
       v-for="({ panel }, index) in tablist.panels.values"
       :key="index"
-      :ref="el => tablist.panels.ref(el, index)"
+      :ref="tablist.panels.ref"
       class="panel"
     >
       {{ panel }}
@@ -22,7 +22,7 @@
 
 <script>
 import { reactive } from 'vue'
-import useTabList from './useTabList'
+import useTabList from './useTablist'
 
 const metadata = [
   { tab: 'Tab #1', panel: 'Content #1' },

@@ -20,18 +20,20 @@ type Panel = {
   isSelected: Ref<boolean>,
 }
 
-type TabList = {
+type Tablist = {
   tabs: { ref: FunctionRef, values: Tab[] },
   panels: { ref: FunctionRef, values: Panel[] },
   list: { ref: FunctionRef },
   selected: Ref<number>
 }
 
-type FunctionRef = (el: HTMLElement, index: number) => void
+type FunctionRef = (el: HTMLElement) => void
 
-export default function useTabList ({ metadata }: Required): TabList {
-  const selected = ref(0),
-        tabsEls = ref<HTMLElement[]>([]),
+export default function useTablist ({ metadata }: Required): Tablist {
+  const selected = ref(0)
+
+  // Set up tabs
+  const tabsEls = ref<HTMLElement[]>([]),
         tabs = metadata.map(({ tab, panel }: Metadatum, index): Tab => {
           const isSelected = computed(() => index === selected.value),
                 tabEl = computed(() => tabsEls.value[index])
@@ -49,8 +51,15 @@ export default function useTabList ({ metadata }: Required): TabList {
           })
 
           return { tab, isSelected }
-        }),
-        panelsEls = ref<HTMLElement[]>([]),
+        })
+
+  onBeforeUpdate(() => {
+    tabsEls.value = []
+  })
+
+
+  // Set up panels
+  const panelsEls = ref<HTMLElement[]>([]),
         panels = metadata.map(({ tab, panel }: Metadatum, index): Panel => {
           const isSelected = computed(() => index === selected.value),
                 panelEl = computed(() => panelsEls.value[index])
@@ -69,7 +78,6 @@ export default function useTabList ({ metadata }: Required): TabList {
         })
 
   onBeforeUpdate(() => {
-    tabsEls.value = []
     panelsEls.value = []
   })
   
@@ -93,11 +101,11 @@ export default function useTabList ({ metadata }: Required): TabList {
     // element ref (e.g. <div :ref="myRef" />) instead of passing strings to some elements
     // and binding refs to others.
     tabs: {
-      ref: (el, index) => (tabsEls.value[index] = el),
+      ref: el => tabsEls.value.push(el),
       values: tabs,
     },
     panels: {
-      ref: (el, index) => (panelsEls.value[index] = el),
+      ref: el => panelsEls.value.push(el),
       values: panels,
     },
     list: {

@@ -31,7 +31,7 @@ Furthermore, it's possible to implement all event listening, attribute binding, 
   <div
     v-for="({ tab, isSelected }, index) in tablist.tabs.values"
     :key="index"
-    :ref="el => tablist.tabs.ref(el, index)"
+    :ref="tablist.tabs.ref"
     class="tab"
     :class="isSelected ? 'selected' : ''"
   >
@@ -40,7 +40,7 @@ Furthermore, it's possible to implement all event listening, attribute binding, 
   <div
     v-for="({ panel }, index) in tablist.panels.values"
     :key="index"
-    :ref="el => tablist.panels.ref(el, index)"
+    :ref="tablist.panels.ref"
     class="panel"
   >
     {{ panel }}
@@ -71,20 +71,3 @@ This example is a Vite app. To run locally:
 3. `npm run dev`
 4. Visit http://localhost:3000
 
-
-
-## Infinite recursion bug in `v-for` function refs
-
-The `v-for` function refs in the above example are bound to the element and wrapped in additional closures that pass the item's index to the function ref:
-
-```html
-<div :ref="el => tablist.tabs.ref(el, index)">...</div>
-```
-
-In my opinion, this shouldn't be necessary, and it should be simplified to the following, with the function ref accepting only the HTML element:
-
-```html
-<div :ref="tablist.tabs.ref">...</div>
-```
-
-Unfortunately, this nicer solution is associated with an infinite recursion bug, [reported here ](https://github.com/vuejs/vue-next/issues/2767).
