@@ -22,7 +22,7 @@
 
 <script>
 import { reactive } from 'vue'
-import useTabList from './useTablist'
+import useTablist from './useTablist.ts'
 
 const metadata = [
   { tab: 'Tab #1', panel: 'Content #1' },
@@ -33,7 +33,7 @@ const metadata = [
 export default {
   setup () {
     return {
-      tablist: reactive(useTabList({ metadata }))
+      tablist: reactive(useTablist({ metadata }))
     }
   }
 }
